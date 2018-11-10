@@ -13,6 +13,7 @@ class Product{
     public $category_id;
     public $category_name;
     public $created;
+    public $img;
  
     // constructor with $db as database connection
     public function __construct($db){
@@ -23,7 +24,7 @@ function read(){
  
     // select all query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
+                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created,p.img
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
@@ -47,7 +48,7 @@ function create(){
     $query = "INSERT INTO
                 " . $this->table_name . "
             SET
-                name=:name, price=:price, description=:description, category_id=:category_id, created=:created";
+                img=:img,name=:name, price=:price, description=:description, category_id=:category_id, created=:created";
  
     // prepare query
     $stmt = $this->conn->prepare($query);
@@ -58,6 +59,8 @@ function create(){
     $this->description=htmlspecialchars(strip_tags($this->description));
     $this->category_id=htmlspecialchars(strip_tags($this->category_id));
     $this->created=htmlspecialchars(strip_tags($this->created));
+    $this->img=htmlspecialchars(strip_tags($this->img));
+
  
     // bind values
     $stmt->bindParam(":name", $this->name);
@@ -65,6 +68,8 @@ function create(){
     $stmt->bindParam(":description", $this->description);
     $stmt->bindParam(":category_id", $this->category_id);
     $stmt->bindParam(":created", $this->created);
+    $stmt->bindParam(":img", $this->img);
+
  
     // execute query
     if($stmt->execute()){
@@ -80,7 +85,7 @@ function readOne(){
  
     // query to read single record
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
+                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created,p.img
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
@@ -109,6 +114,9 @@ function readOne(){
     $this->description = $row['description'];
     $this->category_id = $row['category_id'];
     $this->category_name = $row['category_name'];
+    $this->img = $row['img'];
+
+
 }
 
 // update the product
@@ -121,7 +129,8 @@ function update(){
                 name = :name,
                 price = :price,
                 description = :description,
-                category_id = :category_id
+                category_id = :category_id,
+                img=:img
             WHERE
                 id = :id";
  
@@ -134,6 +143,8 @@ function update(){
     $this->description=htmlspecialchars(strip_tags($this->description));
     $this->category_id=htmlspecialchars(strip_tags($this->category_id));
     $this->id=htmlspecialchars(strip_tags($this->id));
+    $this->img=htmlspecialchars(strip_tags($this->img));
+
  
     // bind new values
     $stmt->bindParam(':name', $this->name);
@@ -141,6 +152,8 @@ function update(){
     $stmt->bindParam(':description', $this->description);
     $stmt->bindParam(':category_id', $this->category_id);
     $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':img', $this->img);
+
  
     // execute the query
     if($stmt->execute()){
@@ -179,7 +192,7 @@ function search($keywords){
  
     // select all query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
+                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created,p.img,
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
@@ -207,41 +220,6 @@ function search($keywords){
  
     return $stmt;
 }
-// read products with pagination
-public function readPaging($from_record_num, $records_per_page){
- 
-    // select query
-    $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
-            FROM
-                " . $this->table_name . " p
-                LEFT JOIN
-                    categories c
-                        ON p.category_id = c.id
-            ORDER BY p.created DESC
-            LIMIT ?, ?";
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare( $query );
- 
-    // bind variable values
-    $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
-    $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
- 
-    // execute query
-    $stmt->execute();
- 
-    // return values from database
-    return $stmt;
-}
-// used for paging products
-public function count(){
-    $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
- 
-    $stmt = $this->conn->prepare( $query );
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
- 
-    return $row['total_rows'];
-}
+
+
 }

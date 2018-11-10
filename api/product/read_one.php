@@ -31,7 +31,8 @@ if($product->name!=null){
         "description" => $product->description,
         "price" => $product->price,
         "category_id" => $product->category_id,
-        "category_name" => $product->category_name
+        "category_name" => $product->category_name,
+        "img"=>$product->img,
  
     );
  

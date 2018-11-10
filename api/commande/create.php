@@ -32,7 +32,7 @@ if(
     $commande->idproduit = $data->idproduit;
     $commande->quantite = $data->quantite;
     $commande->etat ="en cour";
-    $commande->total=0;
+    $commande->total=$data->total;
     $commande->dateco=date('Y-m-d H:i:s');
  
     // create the commande

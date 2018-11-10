@@ -42,7 +42,8 @@ if($num>0){
             "description" => html_entity_decode($description),
             "price" => $price,
             "category_id" => $category_id,
-            "category_name" => $category_name
+            "category_name" => $category_name,
+            "img" =>$img,
         );
  
         array_push($products_arr["records"], $product_item);

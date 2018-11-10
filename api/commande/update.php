@@ -24,10 +24,9 @@ $data = json_decode(file_get_contents("php://input"));
 $commande->id = $data->id;
  
 // set commande property values
-$commande->name = $data->name;
-$commande->price = $data->price;
-$commande->description = $data->description;
-$commande->category_id = $data->category_id;
+    $commande->quantite = $data->quantite;
+    $commande->etat =$data->etat;
+    $commande->total=$data->total;
  
 // update the commande
 if($commande->update()){

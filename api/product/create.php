@@ -34,6 +34,7 @@ if(
     $product->description = $data->description;
     $product->category_id = $data->category_id;
     $product->created = date('Y-m-d H:i:s');
+    $product->img=$data->img;
  
     // create the product
     if($product->create()){
