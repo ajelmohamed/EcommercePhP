@@ -6,11 +6,13 @@ class Client{
     private $table_name = "clients";
 
      // object properties
-     public $id;
-     public $fname;
-     public $lname;
-     public $email;
-     public $password;
+     public $Id;
+     public $FirstName;
+     public $LastName;
+     public $Email;
+     public $Password;
+     public $PhoneNumber;
+     Public $Adress;
 
      // constructor with $db as database connection
     public function __construct($db){
@@ -24,23 +26,30 @@ function create(){
     $query = "INSERT INTO
                 " . $this->table_name . "
             SET
-                nom=:fname, prenom=:lname , email=:email , password=:password";
+                FirstName=:FirstName, prenom=:LastName , Email=:Email , Password=:Password , PhonerNumber=:PhoneNumber,Adress=:Adress";
  
     // prepare query
     $stmt = $this->conn->prepare($query);
  
     // sanitize
-    $this->fname=htmlspecialchars(strip_tags($this->fname));
-    $this->lname=htmlspecialchars(strip_tags($this->lname));
-    $this->email=htmlspecialchars(strip_tags($this->email));
-    $this->password=htmlspecialchars(strip_tags($this->password));
+    $this->FirstName=htmlspecialchars(strip_tags($this->FirstName));
+    $this->LastName=htmlspecialchars(strip_tags($this->LastName));
+    $this->Email=htmlspecialchars(strip_tags($this->Email));
+    $this->Password=htmlspecialchars(strip_tags($this->Password));
+    $this->PhoneNumber=htmlspecialchars(strip_tags($this->PhoneNumber));
+    $this->Adress=htmlspecialchars(strip_tags($this->Adress));
+
 
  
     // bind values
-    $stmt->bindParam(":fname", $this->fname);
-    $stmt->bindParam(":lname", $this->lname);
-    $stmt->bindParam(":email", $this->email);
-    $stmt->bindParam(":password", $this->password);
+    $stmt->bindParam(":FirstName", $this->FirstName);
+    $stmt->bindParam(":LastName", $this->LastName);
+    $stmt->bindParam(":Email", $this->Email);
+    $stmt->bindParam(":Password", $this->Password);
+    $stmt->bindParam(":PhoneNumber", $this->PhoneNumber);
+    $stmt->bindParam(":Adress", $this->Adress);
+
+
  
     // execute query
     if($stmt->execute()){
@@ -50,6 +59,41 @@ function create(){
     return false;
      
 } 
+
+function signIn(){
+ 
+        // query to read single record
+        $query = "SELECT *
+                FROM
+                    " . $this->table_name . " 
+                    
+                WHERE
+                    Email =:Email and Password=:Password"
+                    ;
+               
+     
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+     
+        // bind id of product to be updated
+        $stmt->bindParam(":Email",$this->Email);
+        $stmt->bindParam("Password",$this->Password);
+     
+        // execute query
+        $stmt->execute();
+     
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+     
+        // set values to object properties
+        $this->Id=$row['Id'];
+        $this->FirstName = $row['FirstName'];
+        $this->LastName = $row['LastName'];
+        $this->PhoneNumber = $row['PhoneNumber'];
+        $this->Adress = $row['Adress'];
+    
+    
+}
     
 
 }

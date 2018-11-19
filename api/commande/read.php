@@ -25,7 +25,7 @@ if($num>0){
  
     // commandes array
     $commandes_arr=array();
-    $commandes_arr["records"]=array();
+    //$commandes_arr["records"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -34,9 +34,9 @@ if($num>0){
         // extract row
         // this will make $row['name'] to
         // just $name only
-        extract($row);
+       // extract($row);
  
-        $commande_item=array(
+       /* $commande_item=array(
             "id" => $id,
             "cname" => $clientname.$clientlname,
             "price" => $price,
@@ -46,9 +46,9 @@ if($num>0){
             "total"=>$total,
 
 
-        );
+        ); */
  
-        array_push($commandes_arr["records"], $commande_item);
+        array_push($commandes_arr, $row);
     }
  
     // set response code - 200 OK

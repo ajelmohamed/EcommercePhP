@@ -18,15 +18,16 @@ $db = $database->getConnection();
 $product = new Product($db);
  
 // set ID property of record to read
-$product->id = isset($_GET['id']) ? $_GET['id'] : die();
+$product->Id = isset($_GET['id']) ? $_GET['id'] : die();
  
 // read the details of product to be edited
+
 $product->readOne();
  
-if($product->name!=null){
-    // create array
+if($product->Name!=null){
+    /* create array
     $product_arr = array(
-        "id" =>  $product->id,
+       "id" =>  $product->id,
         "name" => $product->name,
         "description" => $product->description,
         "price" => $product->price,
@@ -35,12 +36,12 @@ if($product->name!=null){
         "img"=>$product->img,
  
     );
- 
+ */
     // set response code - 200 OK
     http_response_code(200);
  
     // make it json format
-    echo json_encode($product_arr);
+    echo json_encode($product);
 }
  
 else{

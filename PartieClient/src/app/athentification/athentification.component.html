@@ -1,0 +1,80 @@
+<div id="wrapper" class="container">
+<section class="header_text sub">
+  <img class="pageBanner" src="src/themes/images/pageBanner.png" alt="New products" >
+    <h4><span>Login or Regsiter</span></h4>
+  </section>			
+  <section class="main-content">				
+    <div class="row">
+      <div class="span5">					
+        <h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
+        <form  [formGroup]="loginForm" (ngSubmit)="SignIn()">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label">Email</label>
+              <div class="controls">
+                <input type="email" placeholder="Enter your Email" id="username" class="input-xlarge" formControlName="email">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Password</label>
+              <div class="controls">
+                <input type="password" formControlName="password" placeholder="Enter your password" id="password" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <input tabindex="3" class="btn btn-inverse large" type="submit" [disabled]="loginForm.invalid" value="Sign into your account">
+              <hr>
+              <p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>
+            </div>
+          </fieldset>
+        </form>				
+      </div>
+      <div class="span7">					
+        <h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
+        <form action="#" method="post" class="form-stacked">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label">Firstname</label>
+              <div class="controls">
+                <input type="text" placeholder="Enter your lirst name" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Lastname</label>
+              <div class="controls">
+                <input type="text" placeholder="Enter your last name" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Email address:</label>
+              <div class="controls">
+                <input type="email" placeholder="Enter your email" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Password:</label>
+              <div class="controls">
+                <input type="password" placeholder="Enter your password" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Adress:</label>
+              <div class="controls">
+                <input type="text" placeholder="Enter your Adress" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">PhoneNumber:</label>
+              <div class="controls">
+                <input type="tel" placeholder="Enter your PhoneNumber" class="input-xlarge">
+              </div>
+            </div>							                            
+            
+            <hr>
+            <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Create your account"></div>
+          </fieldset>
+        </form>					
+      </div>				
+    </div>
+  </section>			
+</div>

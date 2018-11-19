@@ -25,7 +25,7 @@ if($num>0){
  
     // products array
     $products_arr=array();
-    $products_arr["records"]=array();
+    //$products_arr["records"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -34,9 +34,9 @@ if($num>0){
         // extract row
         // this will make $row['name'] to
         // just $name only
-        extract($row);
+       // extract($row);
  
-        $product_item=array(
+       /* $product_item=array(
             "id" => $id,
             "name" => $name,
             "description" => html_entity_decode($description),
@@ -44,9 +44,9 @@ if($num>0){
             "category_id" => $category_id,
             "category_name" => $category_name,
             "img" =>$img,
-        );
+        ); */
  
-        array_push($products_arr["records"], $product_item);
+        array_push($products_arr, $row);
     }
  
     // set response code - 200 OK

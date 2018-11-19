@@ -1,0 +1,28 @@
+<div id="wrapper" class="container">
+    <section class="header_text sub">
+				<img class="pageBanner" src="src/themes/images/pageBanner.png" alt="New products" >
+					<h4><span>New products</span></h4>
+		</section>
+<section class="main-content">
+				
+  <div class="row">						
+    <div class="span9">								
+      <ul class="thumbnails listing-products" >
+        <li class="span3" *ngFor="let product of products; let i = index" (click)="SHowProductDetail(product)">
+          <div class="product-box">
+            <span class="sale_tag"></span>												
+           <a  ><img alt="" src="src/themes/images/ladies/9.jpg"></a><br/>
+            <a  class="title">{{product.Name}}</a><br/>
+            <a   class="category">{{product.Category_name}}</a>
+            <p  class="price">${{product.Price}}</p>
+          </div>
+        </li> 
+        </ul>
+        			
+      <hr>
+      
+      
+    </div>
+  </div>
+</section>
+</div>

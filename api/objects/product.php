@@ -6,14 +6,14 @@ class Product{
     private $table_name = "products";
  
     // object properties
-    public $id;
-    public $name;
-    public $description;
-    public $price;
-    public $category_id;
-    public $category_name;
-    public $created;
-    public $img;
+    public $Id;
+    public $Name;
+    public $Description;
+    public $Price;
+    public $Category_id;
+    public $Category_name;
+    public $Created;
+    public $Img;
  
     // constructor with $db as database connection
     public function __construct($db){
@@ -24,7 +24,7 @@ function read(){
  
     // select all query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created,p.img
+                *
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
@@ -84,13 +84,12 @@ function create(){
 function readOne(){
  
     // query to read single record
-    $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created,p.img
+    $query = "SELECT *
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
                     categories c
-                        ON p.category_id = c.id
+                        ON p.Category_id = c.id
             WHERE
                 p.id = ?
             LIMIT
@@ -100,7 +99,7 @@ function readOne(){
     $stmt = $this->conn->prepare( $query );
  
     // bind id of product to be updated
-    $stmt->bindParam(1, $this->id);
+    $stmt->bindParam(1, $this->Id);
  
     // execute query
     $stmt->execute();
@@ -109,12 +108,12 @@ function readOne(){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
  
     // set values to object properties
-    $this->name = $row['name'];
-    $this->price = $row['price'];
-    $this->description = $row['description'];
-    $this->category_id = $row['category_id'];
-    $this->category_name = $row['category_name'];
-    $this->img = $row['img'];
+    $this->Name = $row['Name'];
+    $this->Price = $row['Price'];
+    $this->Description = $row['Description'];
+    $this->Category_id = $row['Category_id'];
+    $this->Category_name = $row['category_name'];
+    $this->Img = $row['Img'];
 
 
 }

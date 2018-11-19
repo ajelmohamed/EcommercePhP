@@ -7,12 +7,12 @@ class Commande{
 
      // object properties
      public $id;
-     public $dateco;
+     public $date;
      public $idclient;
-     public $idproduit;
-     public $quantite;
+     public $idproduct;
+     public $Quantity;
      public $total;
-     public $etat;
+     public $Status;
 
      // constructor with $db as database connection
     public function __construct($db){
@@ -26,27 +26,27 @@ function create(){
     $query = "INSERT INTO
                 " . $this->table_name . "
             SET
-                idclient=:idclient, idproduit=:idproduit , date=:dateco , quantite=:quantite,total=:total,etat=:etat";
+                idclient=:idclient, idproduct=:idproduct , date=:date , Quantity=:Quantity,total=:total,Status=:Status";
  
     // prepare query
     $stmt = $this->conn->prepare($query);
  
     // sanitize
     $this->idclient=htmlspecialchars(strip_tags($this->idclient));
-    $this->idproduit=htmlspecialchars(strip_tags($this->idproduit));
-    $this->dateco=htmlspecialchars(strip_tags($this->dateco));
-    $this->quantite=htmlspecialchars(strip_tags($this->quantite));
+    $this->idproduct=htmlspecialchars(strip_tags($this->idproduct));
+    $this->date=htmlspecialchars(strip_tags($this->date));
+    $this->Quantity=htmlspecialchars(strip_tags($this->Quantity));
     $this->total=htmlspecialchars(strip_tags($this->total));
-    $this->etat=htmlspecialchars(strip_tags($this->etat));
+    $this->Status=htmlspecialchars(strip_tags($this->Status));
 
  
     // bind values
     $stmt->bindParam(":idclient", $this->idclient);
-    $stmt->bindParam(":idproduit", $this->idproduit);
-    $stmt->bindParam(":quantite", $this->quantite);
+    $stmt->bindParam(":idproduct", $this->idproduct);
+    $stmt->bindParam(":Quantity", $this->Quantity);
     $stmt->bindParam(":total", $this->total);
-    $stmt->bindParam(":dateco", $this->dateco);
-    $stmt->bindParam(":etat", $this->etat);
+    $stmt->bindParam(":date", $this->date);
+    $stmt->bindParam(":Status", $this->Status);
     // execute query
     if($stmt->execute()){
         return true;
@@ -63,9 +63,9 @@ function update(){
     $query = "UPDATE
                 " . $this->table_name . "
              SET 
-             quantite=:quantite,
+             Quantity=:Quantity,
              total=:total,
-             etat=:etat
+             Status=:Status
             WHERE
                 id = :id";
  
@@ -73,17 +73,17 @@ function update(){
     $stmt = $this->conn->prepare($query);
  
       // sanitize
-      $this->quantite=htmlspecialchars(strip_tags($this->quantite));
+      $this->Quantity=htmlspecialchars(strip_tags($this->Quantity));
       $this->total=htmlspecialchars(strip_tags($this->total));
-      $this->etat=htmlspecialchars(strip_tags($this->etat));
+      $this->Status=htmlspecialchars(strip_tags($this->Status));
   
    
       // bind values
       $stmt->bindParam(":id", $this->id);
 
-      $stmt->bindParam(":quantite", $this->quantite);
+      $stmt->bindParam(":Quantity", $this->Quantity);
       $stmt->bindParam(":total", $this->total);
-      $stmt->bindParam(":etat", $this->etat);
+      $stmt->bindParam(":Status", $this->Status);
  
     // execute the query
     if($stmt->execute()){
@@ -96,8 +96,7 @@ function update(){
 function read(){
  
     // select all query
-    $query = "SELECT
-                c.id ,cl.nom as clientname, cl.prenom as clientlname,p.name,p.price,c.etat, c.total , c.quantite
+    $query = "SELECT *
             FROM
                 " . $this->table_name . " c
                 LEFT JOIN
@@ -105,7 +104,7 @@ function read(){
                         ON c.idclient = cl.id
                 LEFT JOIN
                      products p 
-                     ON c.idproduit = p.id
+                     ON c.idproduct = p.id
             ORDER BY
                 c.date";
  
